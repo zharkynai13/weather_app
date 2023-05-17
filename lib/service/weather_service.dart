@@ -15,11 +15,11 @@ class WeatherService {
 
   void getCurrentWeatherData({
   Function()? beforeSend,
-  required Function(CurrentWeatherData currentWeatherData) onSuccess,
-  required Function(dynamic error) onError,
+   Function(CurrentWeatherData currentWeatherData)? onSuccess,
+   Function(dynamic error)? onError,
 
 }){
-  const url = '';
+  final url = '$baseUrl/weather?q=city&lang==en&$apiKey';
   ApiRepository(url: '$url', payload: payload).get (
     beforeSend: () => {
       if(beforeSend != null) {
@@ -27,7 +27,7 @@ class WeatherService {
       }
     },
     onSuccess: (data) => {
-      onSuccess (CurrentWeatherData.fromJson(data))
+      onSuccess! (CurrentWeatherData.fromJson(data))
     },
     onError: (error) => {
       if(onError != null) {
@@ -40,8 +40,8 @@ class WeatherService {
 }
  void getTopFiveCities({
   Function()? beforeSend,
-  required Function(dynamic currentWeatherData) onSuccess,
-  required Function(dynamic error) onError
+ Function(dynamic currentWeatherData)? onSuccess,
+Function(dynamic error)? onError
 
 }) {}
 void getFiveDaysThreeHoursForecastData({
